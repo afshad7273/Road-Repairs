@@ -21,21 +21,22 @@ const PayNow = () => {
     const [orderId, setOrderId] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    // Handle redirect from Stripe Checkout
+    // Handle redirect from Stripe Checkout (and now internal success/failure)
     useEffect(() => {
-        const success = searchParams.get('success');
-        const orderId = searchParams.get('orderId');
-        if (success === 'true' && orderId) {
-            setOrderId(orderId);
+        const successParam = searchParams.get('success');
+        const orderIdParam = searchParams.get('orderId');
+
+        if (successParam === 'true' && orderIdParam) {
+            setOrderId(orderIdParam);
             setPaymentSuccess(true);
             setTimeout(() => {
                 setPaymentSuccess(false);
                 setOrderId(null);
-                navigate('/productpurchase'); // Redirect to Product History on success
-                window.history.replaceState({}, '', '/paynow'); // Clear query params
+                navigate('/productpurchase');
+                window.history.replaceState({}, '', '/paynow');
             }, 2500);
-        } else if (success === 'false' && orderId) {
-            setOrderId(orderId);
+        } else if (successParam === 'false' && orderIdParam) {
+            setOrderId(orderIdParam);
             setPaymentError('Payment was canceled or failed');
             setTimeout(() => {
                 setPaymentError(null);
@@ -43,16 +44,16 @@ const PayNow = () => {
                 window.history.replaceState({}, '', '/paynow');
             }, 5000);
         }
-    }, [searchParams, navigate]); // Added navigate to the dependency array
+    }, [searchParams, navigate]);
 
     const handlePaymentSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        
+
         try {
             if (paymentMethod === 'cash') {
                 const response = await axios.post(
-                    'https://road-repairs.onrender.com/api/v1/payments/create-checkout-session',
+                    'https://road-repairs.onrender.com/api/v1/payments/create-checkout',
                     {
                         items: selectedItems.map((item) => ({
                             productId: item._id,
@@ -74,7 +75,7 @@ const PayNow = () => {
                     setPaymentSuccess(false);
                     setPaymentMethod('card');
                     setOrderId(null);
-                    navigate('/productpurchase'); // Redirect to Product History on success
+                    navigate('/productpurchase');
                 }, 2500);
             } else {
                 const stripe = await stripePromise;
@@ -98,6 +99,7 @@ const PayNow = () => {
                 await stripe.redirectToCheckout({ sessionId });
             }
         } catch (err) {
+            console.error('Payment Error:', err);
             setPaymentError(err.response?.data?.message || 'Payment initiation failed');
             setTimeout(() => setPaymentError(null), 5000);
         } finally {
@@ -105,6 +107,7 @@ const PayNow = () => {
         }
     };
 
+    // Render Success Message
     if (paymentSuccess) {
         return (
             <div className="min-h-screen bg-gradient-to-r from-gray-900 to-blue-950 flex items-center justify-center p-4">
@@ -127,6 +130,34 @@ const PayNow = () => {
                         Payment Successful!
                     </h3>
                     <p className="text-gray-300">Thank you for your payment.</p>
+                </div>
+            </div>
+        );
+    }
+
+    // Render Failure Message
+    if (paymentError) {
+        return (
+            <div className="min-h-screen bg-gradient-to-r from-gray-900 to-red-900 flex items-center justify-center p-4">
+                <div className="text-center p-10 bg-gray-800/50 backdrop-blur-lg rounded-3xl shadow-2xl border border-red-400/20 animate-fade-in">
+                    <svg
+                        className="w-16 h-16 mx-auto text-red-500 mb-4 animate-bounce"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                    </svg>
+                    <h3 className="text-3xl font-extrabold text-red-400 mb-2 drop-shadow-lg">
+                        Payment Failed!
+                    </h3>
+                    <p className="text-gray-300">{paymentError}</p>
                 </div>
             </div>
         );
