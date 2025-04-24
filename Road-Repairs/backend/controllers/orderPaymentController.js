@@ -84,8 +84,6 @@ const orderPaymentController={
       };
     }),
     mode: 'payment',
-    success_url: `${process.env.BASE_URL}/paynow?success=true&orderId=${order._id}`,
-    cancel_url: `${process.env.BASE_URL}/paynow?success=false&orderId=${order._id}`,
     metadata: {
       orderId: order._id.toString(),
       customerId: req.user._id.toString(),
