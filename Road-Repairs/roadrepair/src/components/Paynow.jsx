@@ -48,6 +48,8 @@ const PayNow = () => {
     const handlePaymentSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
+        console.log(sessionStorage.getItem('token'));
+        
         try {
             if (paymentMethod === 'cash') {
                 const response = await axios.post(
