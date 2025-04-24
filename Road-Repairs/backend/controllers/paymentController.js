@@ -88,6 +88,7 @@ const paymentController = {
     handleWebhook: asyncHandler(async (req, res) => {
         const sig = req.headers['stripe-signature'];
         let event;
+        
 
         try {
             event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_PAYMENT_WEBHOOK_SECRET);
