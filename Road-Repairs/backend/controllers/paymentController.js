@@ -4,6 +4,7 @@ const Payment = require('../models/paymentModel');
 require("dotenv").config()
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const notificationController = require('./notificationController'); // Assuming you have this
+const User = require('../models/userModel');
 
 const paymentController = {
     createPayment: asyncHandler(async (req, res) => {
