@@ -34,7 +34,11 @@ const paymentController = {
                     currency: 'inr', // Or your currency
                     description: `Payment for breakdown ${breakdownId}`,
                     source: token,
-                    metadata: { breakdownId: breakdownId, customerId: req.user._id, workshopId: breakdown.assignedWorkshop._id }, // Include metadata for webhook
+                    metadata: {
+                        breakdownId: breakdownId.toString(),
+                        customerId: req.user._id.toString(),
+                        workshopId: breakdown.assignedWorkshop._id.toString(), 
+                    }, // Include metadata for webhook
                 });
 
                 // Respond immediately that the payment intent was created successfully
