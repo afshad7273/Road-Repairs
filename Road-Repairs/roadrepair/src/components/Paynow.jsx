@@ -78,7 +78,7 @@ const PayNow = () => {
             } else {
                 const stripe = await stripePromise;
                 const response = await axios.post(
-                    'http://localhost:4000/api/v1/order/create-checkout',
+                    'https://road-repairs.onrender.com/api/v1/order/create-checkout',
                     {
                         items: selectedItems.map((item) => ({
                             productId: item._id,
