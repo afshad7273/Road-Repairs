@@ -48,7 +48,6 @@ const PayNow = () => {
     const handlePaymentSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        console.log(sessionStorage.getItem('token'));
         
         try {
             if (paymentMethod === 'cash') {
@@ -65,7 +64,7 @@ const PayNow = () => {
                     {
                         headers: {
                             Authorization: `Bearer ${sessionStorage.getItem('token')}`,
-                        },
+                        }
                     }
                 );
                 setOrderId(response.data.orderId);
@@ -91,7 +90,7 @@ const PayNow = () => {
                     },
                     {
                         headers: {
-                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            Authorization: `Bearer ${sessionStorage.getItem('token')}`,
                         },
                     }
                 );
