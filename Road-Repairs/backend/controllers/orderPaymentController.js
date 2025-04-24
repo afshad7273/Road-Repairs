@@ -110,7 +110,7 @@ const orderPaymentController={
     event = stripe.webhooks.constructEvent(
       req.body,
       sig,
-      process.env.STRIPE_WEBHOOK_SECRET
+      process.env.STRIPE_ORDER_WEBHOOK_SECRET
     );
   } catch (err) {
     console.error('Webhook signature verification failed:', err.message);
