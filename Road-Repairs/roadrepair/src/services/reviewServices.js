@@ -5,15 +5,9 @@ import { getUserData } from '../utils/storageHandler';
 
 // Utility to get the auth token
 const getAuthToken = () => {
-  return localStorage.getItem('token');
+  return sessionStorage.getItem('token');
 };
 
-/**
- * Submits a review to the server
- * @param {Object} reviewData - Contains workshopId, rating, and comment
- * @returns {Promise<Object>} - Response data from the server
- * @throws {Error} - Detailed error if the request fails
- */
 export const submitReviewAPI = async (reviewData) => {
   if (!reviewData || !reviewData.workshopId || !reviewData.rating) {
     throw new Error('Missing required fields: workshopId and rating are mandatory');
