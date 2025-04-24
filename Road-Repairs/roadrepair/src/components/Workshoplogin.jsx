@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -10,6 +10,7 @@ import { login } from "../redux/userSlice";
 export default function Workshoplogin() {
   const navigate = useNavigate();
   const dispatch = useDispatch(); // ✅ Initialize dispatch
+  const [loginError, setLoginError] = useState(null)
 
   // 🎯 Validation Schema for login
   const loginSchema = yup.object().shape({
@@ -35,9 +36,21 @@ export default function Workshoplogin() {
       
       try {
         const response = await mutateAsync(values);
-        console.log("Login successful:", response);
-          dispatch(login(response))
-          navigate("/workhome");
+        if(response.role === "customer"){
+                dispatch(login(data));
+                sessionStorage.setItem("token", response.token);
+                navigate("/welcomesection"); // Redirect after login
+                }else if(response.role === "workshop"){
+                  dispatch(login(data))
+                  sessionStorage.setItem("token", response.token);
+                  navigate("/workhome");
+                }else if(response.role === "admin"){
+                  dispatch(login(data));
+                  sessionStorage.setItem("token", response.token);
+                  navigate("/admindashboard");
+                }else{
+                  setLoginError("Invalid credentials")
+                }
       } catch (error) {
         console.error("Login failed:", error.message);
         alert("Invalid email or password. Please try again.");
@@ -93,6 +106,9 @@ export default function Workshoplogin() {
             Sign Up
           </Link>
         </p>
+        {loginError && <div className="mt-4 text-red-500 text-sm bg-red-100 p-2 rounded-lg">
+            {"Login failed. Please try again."}
+          </div>}
       </div>
     </div>
   );

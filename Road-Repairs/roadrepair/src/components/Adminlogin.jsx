@@ -46,10 +46,21 @@ export default function AdminLogin() {
         const data = await mutateAsync(values);
         console.log(jwtDecode(data.token));
 
-        // 🎉 Dispatch login and save token
-        dispatch(login(data));
-        sessionStorage.setItem("userData", data.token);
-        navigate("/admindashboard");
+        if(data.role === "customer"){
+                dispatch(login(data));
+                sessionStorage.setItem("token", data.token);
+                navigate("/welcomesection"); // Redirect after login
+                }else if(data.role === "workshop"){
+                  dispatch(login(data))
+                  sessionStorage.setItem("token", data.token);
+                  navigate("/workhome");
+                }else if(data.role === "admin"){
+                  dispatch(login(data));
+                  sessionStorage.setItem("token", data.token);
+                  navigate("/admindashboard");
+                }else{
+                  setLoginError("Invalid credentials")
+                }
       } catch (err) {
         // ❌ Handle incorrect login
         setLoginError(

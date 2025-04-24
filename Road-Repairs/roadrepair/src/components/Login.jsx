@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../redux/userSlice";
 
 const Login = () => {
+  const [loginError, setLoginError] = useState(null)
   // 🎯 Mutation for login API
   const { mutateAsync, error, isError } = useMutation({
     mutationFn: loginAPI,
@@ -32,10 +33,21 @@ const Login = () => {
       try {
         const data = await mutateAsync(values);
         console.log(data);
-        
+        if(data.role === "customer"){
         dispatch(login(data));
         sessionStorage.setItem("token", data.token);
         navigate("/welcomesection"); // Redirect after login
+        }else if(data.role === "workshop"){
+          dispatch(login(data))
+          sessionStorage.setItem("token", data.token);
+          navigate("/workhome");
+        }else if(data.role === "admin"){
+          dispatch(login(data));
+          sessionStorage.setItem("token", data.token);
+          navigate("/admindashboard");
+        }else{
+          setLoginError("Invalid credentials")
+        }
       } catch (err) {
         console.error("Login Error:", err);
       }
@@ -104,7 +116,11 @@ const Login = () => {
             <div className="mt-4 text-red-500 text-sm bg-red-100 p-2 rounded-lg">
               {error?.response?.data?.message || "Login failed. Please try again."}
             </div>
-          )}
+            )}
+          {loginError && <div className="mt-4 text-red-500 text-sm bg-red-100 p-2 rounded-lg">
+            {"Login failed. Please try again."}
+          </div>}
+          
         </div>
       </div>
     </div>
