@@ -21,7 +21,6 @@ const PayNow = () => {
     const [orderId, setOrderId] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    // Handle redirect from Stripe Checkout (and now internal success/failure)
     useEffect(() => {
         const successParam = searchParams.get('success');
         const orderIdParam = searchParams.get('orderId');
@@ -337,30 +336,30 @@ const PayNow = () => {
                         {/* Error Message */}
                         {paymentError && (
                             <p className="text-red-400 text-sm mt-4 text-center animate-pulse">
-                                {paymentError}
-                            </p>
-                        )}
-                    </div>
+                            {paymentError}
+                        </p>
+                    )}
                 </div>
-            )}
+            </div>
+        )}
 
-            {/* Footer */}
-            <footer className="bg-gray-950 py-10 text-yellow-400 w-full text-center shadow-inner">
-                <p className="text-lg font-medium">© 2025 Road Repairs. All rights reserved.</p>
-            </footer>
+        {/* Footer */}
+        <footer className="bg-gray-950 py-10 text-yellow-400 w-full text-center shadow-inner">
+            <p className="text-lg font-medium">© 2025 Road Repairs. All rights reserved.</p>
+        </footer>
 
-            {/* Custom CSS for Animations */}
-            <style>{`
-                .animate-fade-in {
-                    animation: fadeIn 0.5s ease-in;
-                }
-                @keyframes fadeIn {
-                    0% { opacity: 0; transform: scale(0.95); }
-                    100% { opacity: 1; transform: scale(1); }
-                }
-            `}</style>
-        </div>
-    );
+        {/* Custom CSS for Animations */}
+        <style>{`
+            .animate-fade-in {
+                animation: fadeIn 0.5s ease-in;
+            }
+            @keyframes fadeIn {
+                0% { opacity: 0; transform: scale(0.95); }
+                100% { opacity: 1; transform: scale(1); }
+            }
+        `}</style>
+    </div>
+);
 };
 
 export default PayNow;
