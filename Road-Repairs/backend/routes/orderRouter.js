@@ -4,7 +4,7 @@ const { protect, authorize } = require('../middleware/authMiddleware');
 const orderController = require('../controllers/orderController');
 const orderPaymentController = require('../controllers/orderPaymentController');
 
-orderRouter.post('/webhook',express.raw({type:"application/json"}), protect, orderPaymentController.handleWebhook);
+orderRouter.post('/webhook',express.raw({type:"application/json"}), orderPaymentController.handleWebhook);
 
 orderRouter.get('/customer', protect, orderController.getCustomerOrders);
 orderRouter.get('/workshop', protect, orderController.getWorkshopOrders);
