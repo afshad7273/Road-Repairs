@@ -22,6 +22,7 @@ const io = socketIo(server, {
     cors: {
         origin: 'https://road-repairs.vercel.app', // Use the same origin as Express
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        optionsSuccessStatus: 200,
     },
 });
 
