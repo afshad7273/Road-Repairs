@@ -51,7 +51,7 @@ const PayNow = () => {
         try {
             if (paymentMethod === 'cash') {
                 const response = await axios.post(
-                    'https://road-repairs.onrender.com/api/payments/create-checkout-session',
+                    'https://road-repairs.onrender.com/api/v1/payments/create-checkout-session',
                     {
                         items: selectedItems.map((item) => ({
                             productId: item._id,
