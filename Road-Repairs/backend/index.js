@@ -12,7 +12,7 @@ const app = express();
 const server = http.createServer(app);
 
 const corsOptions = {
-    origin: 'http://road-repairs.vercel.app', // Adjust to your frontend URL
+    origin: 'https://road-repairs.vercel.app', // Adjust to your frontend URL
     optionsSuccessStatus: 200,
 };
 
