@@ -22,7 +22,7 @@ const Productpurchase = () => {
         }
 
         // Fetch orders from the API
-        const response = await axios.get("https://road-repairs.onrender.com/api/v1/order/customer", {
+        const response = await axios.get(`https://road-repairs.onrender.com/api/v1/order/customer`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
