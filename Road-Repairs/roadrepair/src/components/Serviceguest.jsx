@@ -5,27 +5,27 @@ const services = [
   {
     title: "Engine Repair",
     description: "Expert diagnostics and repairs to keep your engine running smoothly.",
-    image: "/images/engine image.png"
+    image: "/images/bg3.jpg"
   },
   {
     title: "Brake Services",
     description: "Ensuring your safety with top-quality brake repairs and replacements.",
-    image: "/images/brake1.jpg"
+    image: "/images/pic2.jpg"
   },
   {
     title: "Tire Replacement",
     description: "High-quality tires and professional fitting for a smooth ride.",
-    image: "/images/tyre service.png"
+    image: "/images/pic5.jpg"
   },
   {
     title: "Battery Replacement",
     description: "Reliable battery replacement to keep your vehicle powered up.",
-    image: "/images/battery service.png"
+    image: "/images/pic6.jpg"
   },
   {
     title: "Oil Change",
     description: "Regular oil changes to maintain engine health and performance.",
-    image: "/images/oil service.png"
+    image: "/images/pic8.jpg"
   }
 ];
 
