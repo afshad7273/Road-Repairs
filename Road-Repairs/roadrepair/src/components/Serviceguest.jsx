@@ -10,7 +10,7 @@ const services = [
   {
     title: "Brake Services",
     description: "Ensuring your safety with top-quality brake repairs and replacements.",
-    image: "/images/brake.png"
+    image: "/images/brake1.jpg"
   },
   {
     title: "Tire Replacement",
