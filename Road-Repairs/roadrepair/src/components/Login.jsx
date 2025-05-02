@@ -90,9 +90,9 @@ const Login = () => {
               {...getFieldProps("password")}
             />
             {touched.password && errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
-            <a href="#" className="text-sm text-black hover:text-teal-600 mt-2 block text-right">
+            {/* <a href="#" className="text-sm text-black hover:text-teal-600 mt-2 block text-right">
               Forgot Password?
-            </a>
+            </a> */}
           </div>
 
           {/* Submit Button */}
