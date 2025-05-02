@@ -61,7 +61,7 @@ const HomePage = () => {
         <div className="relative z-10 max-w-4xl">
           <h1 className="text-6xl font-bold text-yellow-400">Reliable Auto Repair Services</h1>
           <p className="mt-6 text-xl text-white">Expert solutions to keep your vehicle running smoothly</p>
-          <Link to="/services" className="mt-8 inline-block px-8 py-4 bg-yellow-400 hover:bg-yellow-500 text-gray-900 rounded-lg text-lg transition">Explore Services</Link>
+          <Link to="/service guest" className="mt-8 inline-block px-8 py-4 bg-yellow-400 hover:bg-yellow-500 text-gray-900 rounded-lg text-lg transition">Explore Services</Link>
         </div>
       </header>
       
