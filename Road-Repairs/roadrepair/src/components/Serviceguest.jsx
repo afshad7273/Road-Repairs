@@ -15,7 +15,7 @@ const services = [
     {
         title: "Tire Replacement",
         description: "High-quality tires and professional fitting for a smooth ride.",
-        image: "/images/pic5.jpg"
+        image: "/images/pic4.jpg"
     },
     {
         title: "Battery Replacement",
