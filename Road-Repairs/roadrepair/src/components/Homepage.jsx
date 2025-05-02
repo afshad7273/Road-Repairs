@@ -76,7 +76,7 @@ const HomePage = () => {
             <p className="mt-4">Ensuring your safety with quality brake repairs.</p>
           </div>
           <div className="p-8 bg-gray-900 rounded-lg shadow-lg text-center text-white">
-            <h3 className="text-2xl font-semibold">Tire Replacement</h3>
+            <h3 className="text-2xl font-semibold">Tyre Replacement</h3>
             <p className="mt-4">High-quality tires and professional fitting.</p>
           </div>
         </div>
