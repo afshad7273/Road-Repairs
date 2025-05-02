@@ -205,7 +205,7 @@ const PurchasePage = () => {
                     <h3 className="text-xl font-semibold text-yellow-400">
                       {product.productName}
                     </h3>
-                    <p className="mt-2 font-bold text-2xl">${displayPrice}</p>
+                    <p className="mt-2 font-bold text-2xl">{displayPrice}</p>
                     <p className="text-sm mt-1 font-medium">
                       {isSelected(product._id) ? "Selected" : "Click to select"}
                     </p>
