@@ -10,7 +10,6 @@ const FindLocation = () => {
     const [vehicleModel, setVehicleModel] = useState("");
     const [complaint, setComplaint] = useState("Tire Repair");
     const [description, setDescription] = useState("");
-    const [images, setImages] = useState([]);
     const [workshopNearBy, setWorkshopNearBy] = useState([]);
     const [filterDistance, setFilterDistance] = useState(2);
     const [location, setLocation] = useState(null);
@@ -18,7 +17,7 @@ const FindLocation = () => {
     const [popupMessage, setPopupMessage] = useState(null);
     const [breakdownCreated, setBreakdownCreated] = useState(false);
     const navigate = useNavigate();
-    
+
     const dispatch = useDispatch()
     const breakdownId = useSelector((state)=>state.chat.breakdown)
 
@@ -45,15 +44,6 @@ const FindLocation = () => {
         }
     }, []);
 
-    const handleImageChange = (e) => {
-        const selectedFiles = Array.from(e.target.files);
-        if (selectedFiles.length > 10) {
-            alert("You can upload up to 10 images only.");
-            return;
-        }
-        setImages(selectedFiles);
-    };
-
     const { mutateAsync: createBreakdown, isPending } = useMutation({
         mutationFn: createBreakdownAPI,
         mutationKey: ['create-complaint'],
@@ -73,7 +63,6 @@ const FindLocation = () => {
         formData.append("issueType", complaint);
         formData.append("latitude", location.latitude);
         formData.append("longitude", location.longitude);
-        images.forEach((image) => formData.append("breakdownPictures", image));
 
         try {
             const createdBreakdown = await createBreakdown(formData);
@@ -188,13 +177,6 @@ const FindLocation = () => {
                             onChange={(e) => setDescription(e.target.value)}
                             className="w-full p-3 rounded bg-gray-700 text-white"
                             required
-                        />
-                        <input
-                            type="file"
-                            accept="image/*"
-                            multiple
-                            onChange={handleImageChange}
-                            className="w-full p-3 rounded bg-gray-700 text-white"
                         />
                         <div className="text-white">Location: {locationName}</div>
                         <button
